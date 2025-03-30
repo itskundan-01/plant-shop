@@ -54,7 +54,7 @@ img {
 }
 
 .landing-page {
-    background-image: url('/home/kundan/Kundan@Zorin/FSD/FSD COURSERA PROJECT/plant-shop/public/images/background.jpg');
+    background-image: url('/public/images/background.jpg');
     background-size: cover;
     background-position: center;
     height: 100vh;
