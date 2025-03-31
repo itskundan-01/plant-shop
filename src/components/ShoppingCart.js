@@ -1,6 +1,6 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { increaseQuantity, decreaseQuantity, removeFromCart } from '../redux/actions/cartActions';
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import CartItem from './CartItem';
 import '../styles/ShoppingCart.css';
 
@@ -8,36 +8,33 @@ const ShoppingCart = () => {
     const cartItems = useSelector(state => state.cart.items);
     const totalCost = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
     const totalItems = cartItems.reduce((total, item) => total + item.quantity, 0);
-    const dispatch = useDispatch();
+
+    const handleCheckout = () => {
+        alert("Coming Soon! Our checkout system will be available shortly.");
+    };
 
     return (
         <div className="shopping-cart">
             <h1>Your Shopping Cart</h1>
             <div className="cart-summary">
                 <p>Total Items: {totalItems}</p>
-                <p>Total Cost: ₹ 1{totalCost.toFixed(2)}</p>
+                <p>Total Cost: ₹ {totalCost.toFixed(2)}</p>
             </div>
             <div className="cart-items">
                 {cartItems.length === 0 ? (
                     <p>Your cart is empty.</p>
                 ) : (
                     cartItems.map(item => (
-                        <CartItem 
-                            key={item.id} 
-                            item={item} 
-                            increaseQuantity={() => dispatch(increaseQuantity(item.id))}
-                            decreaseQuantity={() => dispatch(decreaseQuantity(item.id))}
-                            removeFromCart={() => dispatch(removeFromCart(item.id))}
-                        />
+                        <CartItem key={item.id} item={item} />
                     ))
                 )}
             </div>
             <div className="cart-actions">
-                <button className="continue-shopping" onClick={() => window.location.href = '/products'}>
+                <Link to="/products" className="continue-shopping">
                     Continue Shopping
-                </button>
-                <button className="checkout" disabled>
-                    Checkout (Coming Soon)
+                </Link>
+                <button className="checkout-button" onClick={handleCheckout}>
+                    Checkout
                 </button>
             </div>
         </div>

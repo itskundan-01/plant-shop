@@ -31,8 +31,9 @@ const cartReducer = (state = initialState, action) => {
             };
 
         case REMOVE_FROM_CART:
-            const filteredItems = state.items.filter(item => item.id !== action.payload.id);
-            const removedItem = state.items.find(item => item.id === action.payload.id);
+            // Fixed: Using action.payload directly as ID
+            const removedItem = state.items.find(item => item.id === action.payload);
+            const filteredItems = state.items.filter(item => item.id !== action.payload);
 
             return {
                 ...state,
@@ -42,7 +43,8 @@ const cartReducer = (state = initialState, action) => {
             };
 
         case INCREASE_QUANTITY:
-            const increaseItemIndex = state.items.findIndex(item => item.id === action.payload.id);
+            // Fixed: Using action.payload directly as ID
+            const increaseItemIndex = state.items.findIndex(item => item.id === action.payload);
             const increasedItem = {
                 ...state.items[increaseItemIndex],
                 quantity: state.items[increaseItemIndex].quantity + 1,
@@ -58,13 +60,14 @@ const cartReducer = (state = initialState, action) => {
             };
 
         case DECREASE_QUANTITY:
-            const decreaseItemIndex = state.items.findIndex(item => item.id === action.payload.id);
+            // Fixed: Using action.payload directly as ID
+            const decreaseItemIndex = state.items.findIndex(item => item.id === action.payload);
             const decreasedItem = state.items[decreaseItemIndex];
 
             if (decreasedItem.quantity === 1) {
                 return {
                     ...state,
-                    items: state.items.filter(item => item.id !== action.payload.id),
+                    items: state.items.filter(item => item.id !== action.payload),
                     totalItems: state.totalItems - 1,
                     totalCost: state.totalCost - decreasedItem.price,
                 };

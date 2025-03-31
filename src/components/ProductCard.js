@@ -13,7 +13,7 @@ const ProductCard = ({ plant, isInCart }) => {
         <div className="product-card">
             <img src={plant.image} alt={plant.name} />
             <h3>{plant.name}</h3>
-            <p>₹ 1{plant.price}</p>
+            <p>₹ {plant.price}</p>
             <button 
                 onClick={handleAddToCart} 
                 disabled={isInCart}
